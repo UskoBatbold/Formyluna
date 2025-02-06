@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: pink;
+            color: white;
+        }
+        #question {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .buttons {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        #yes {
+            background-color: lightcoral;
+        }
+        #no {
+            background-color: red;
+            color: white;
+        }
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 30px;
+            color: red;
+            animation: floatUp 4s linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-100vh); opacity: 0; }
+        }
+        #wrong-answer {
+            display: none;
+            color: yellow;
+            font-size: 1.5em;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #date-details {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5em;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            background: url('image.png') no-repeat center center/cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="question">Luna, will you be my Valentine? ❤️</div>
+    <div class="buttons">
+        <button id="yes" onclick="showDate()">Yes</button>
+        <button id="no" onclick="wrongAnswer()">No</button>
+    </div>
+    <div id="wrong-answer">That's the wrong answer! Try again! ❤️</div>
+    <div id="date-details">
+        <p>🌹 I've planned something special for us:</p>
+        <p>📍 Location: Färberstraße 42, 90402 Nürnberg</p>
+        <p>🕒 Time: 19:30 on 14.02.2025</p>
+        <p>💖 Dress Code: Just be cute as you are</p>
+    </div>
+    <script>
+        let lastYesSize = 1.5;
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createHeart, 300);
+
+        function wrongAnswer() {
+            document.getElementById("wrong-answer").style.display = "block";
+            const newYesButton = document.createElement("button");
+            newYesButton.innerText = "Yes";
+            lastYesSize *= 2;
+            newYesButton.style.fontSize = lastYesSize + "em";
+            newYesButton.style.position = "absolute";
+            newYesButton.style.top = Math.random() * 80 + "vh";
+            newYesButton.style.left = Math.random() * 80 + "vw";
+            newYesButton.onclick = showDate;
+            newYesButton.style.backgroundColor = "lightcoral";
+            document.body.appendChild(newYesButton);
+        }
+
+        function showDate() {
+            document.getElementById("question").style.display = "none";
+            document.querySelector(".buttons").style.display = "none";
+            document.getElementById("wrong-answer").style.display = "none";
+            document.getElementById("date-details").style.display = "block";
+            document.querySelectorAll("button").forEach(button => button.remove());
+        }
+    </script>
+</body>
+</html>
